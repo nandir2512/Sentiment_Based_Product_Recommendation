@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Based Product Recommendation</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #FFD670, #FFA07A);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 500px;
+            text-align: center;
+            margin-top: -50px;
+        }
+        h1 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #FF6347;
+        }
+        input[type="text"] {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color: #333;
+            font-size: 16px;
+            padding: 10px 15px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #FF6347;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #FF4500;
+        }
+        .message-display {
+            font-size: 24px;
+            margin-top: 30px;
+            color: #FF6347;
+        }
+        .recommendations {
+            margin-top: 30px;
+        }
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .styled-table thead tr {
+            background-color: #FF6347;
+            color: #fff;
+            text-align: left;
+        }
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f9f9f9;
+        }
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #FF6347;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Based Product Recommendation</h1>
+        <form action="{{ url_for('predict') }}" method="post">
+            <input type="text" name="username" placeholder="Enter your username" required>
+            <button type="submit">Get Recommendations</button>
+        </form>
+        <p class="message-display">{{ message_display }}</p>
+        <div class="recommendations">
+            <h2>Top 5 Recommended Products</h2>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for op in output %}
+                    <tr>
+                        <td>{{ op }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
